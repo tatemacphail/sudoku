@@ -72,4 +72,38 @@ void fillBoard(board_t* board, FILE* input, int format);
  */
 void printBoard(board_t* board);
 
+/*
+ * Change the indicated position to the passed character.
+ *
+ * PARAMS:
+ *      board - pointer to a board
+ *      row - row of position to change
+ *      col - column of position to change
+ *      val - the new value for the position
+ * PRE:
+ *      TODO: Implement tracking original board
+ *      board != NULL &&
+ *      1 <= row <= 9 &&
+ *      1 <= col <= 9 &&
+ *      '0' <= val < '9'
+ * POST:
+ *      The indicated position has been changed to the
+ *      passed character.
+ */
+void changePos(board_t* board, int row, int col, char val);
+
+/*
+ * Checks that the board results in a win
+ *
+ * PARAMS:
+ *      board - pointer to the board to be checked
+ * PRE:
+ *      board != NULL && '0' <= board->values[*][*] <= '9'
+ * POST:
+ *      board is unchanged
+ * RETURNS:
+ *      1 if the board is a win, 0 ow
+ */
+int checkForWin(board_t* board);
+
 #endif

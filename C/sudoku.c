@@ -68,3 +68,24 @@ void printBoard(board_t* board){
         printf("\n");
     }
 }
+
+void changePos(board_t* board, int row, int col, char val){
+    board->values[row-1][col-1] = val;
+}
+
+int checkForWin(board_t* board){
+    for (int rowNcol = 0; rowNcol < 9; rowNcol++){
+        for (int i = 0; i < 9; i++){
+            // check for blanks
+            if (board->values[rowNcol][i] == '0' || board->values[i][rowNcol] == '0')
+                return 0;
+            // check for repeats
+            for (int n = i + 1; n < 9; n++){
+                if (board->values[rowNcol][i] == board->values[rowNcol][n] ||
+                        board->values[i][rowNcol] == board->values[n][rowNcol])
+                    return 0;
+            }
+        }
+    }
+    return 1;
+}
