@@ -23,12 +23,14 @@ int main(int argc, char* argV[]){
             input = fopen(argV[1], "r");
             assert(input != NULL);
             fillBoard(&board, input, 0);
+            fclose(input);
             break;
         case 3:
             input = fopen(argV[1], "r");
             assert(input != NULL);
             assert(argV[2][0] == '0' || argV[2][0] == '1');
             fillBoard(&board, input, argV[2][0] - '0');
+            fclose(input);
             break;
         default:
             // TODO: readme instructions
