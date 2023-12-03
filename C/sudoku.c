@@ -32,23 +32,40 @@ void fillBoardManual(board_t* board){
 }
 
 void fillBoard(board_t* board, FILE* input, int format){
+    int row, col;
     switch(format){
         case 0:
-            for(int row = 0; row < 9; row++){
-                for (int col = 0; col < 9; col++){
+            for(row = 0; row < 9; row++){
+                for (col = 0; col < 9; col++){
                     board->values[row][col] = fgetc(input);
-                    board->rows[row].values[col] = &(board->values[row][col]);
-                    board->columns[col].values[row] = &(board->values[row][col]);
-                    board->squares[row/3][col/3].values[row%3][col%3] =
-                            &(board->values[row][col]);
                 }
             }
-            return;
-        case 1: // TODO
-        case 2: // TODO
+            break;
+        case 1:
+            for (row = 0; row < 9; row++){
+                col = 0;
+                do {
+                    board->values[row][col] = fgetc(input);
+                } while (col++ < 9 && board->values[row][col] != '\n');
+                // fill rest of row with zeros
+                while (col < 9){
+                    board->values[row][col] = '0';
+                    col++;
+                }
+            }
+            break;
         default:
             printf("Invalid format specified for fillBoard\n");
             exit(1);
+    }
+    // assign memory addresses with separate nested loop for readability
+    for (row = 0; row < 9; row++){
+        for (col = 0; col < 9; col++){
+            board->rows[row].values[col] = &(board->values[row][col]);
+            board->columns[col].values[row] = &(board->values[row][col]);
+            board->squares[row/3][col/3].values[row%3][col%3] =
+                    &(board->values[row][col]);
+        }
     }
 }
 

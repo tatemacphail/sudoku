@@ -48,13 +48,12 @@ void fillBoardManual(board_t* board);
  *      input - the input file pointer
  *      format - specifier for the format of the input
  *             0: reads character by character
- *             1: TODO: by row
- *             2: TODO: line by line
+ *             1: reads by character on a per-line basis
  * PRE:
  *      board != NULL &&
  *      input != NULL && [input is open for reading] &&
  *          [input is formatted according to readme] && TODO: make/add formats to readme
- *      format = 0, 1, or 2
+ *      format = 0 or 1
  * POST:
  *      (*board) is filled with data from file
  */

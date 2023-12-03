@@ -27,7 +27,7 @@ int main(int argc, char* argV[]){
         case 3:
             input = fopen(argV[1], "r");
             assert(input != NULL);
-            assert(argV[2][0] == '1' || argV[2][0] == '2');
+            assert(argV[2][0] == '0' || argV[2][0] == '1');
             fillBoard(&board, input, argV[2][0] - '0');
             break;
         default:
