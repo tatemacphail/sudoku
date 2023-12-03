@@ -70,12 +70,16 @@ void processMenuInput(char input, board_t* board, int* printToggle){
     char val = '\0';
     switch (input){
         case 'c': //TODO: validate input or get better system
-            printf("Row [1-9]: ");
-            row = getchar() - '0';
-            while (getchar() != '\n');
-            printf("Col [1-9]: ");
-            col = getchar() - '0';
-            while (getchar() != '\n');
+            do {
+                printf("Row [1-9]: ");
+                row = getchar() - '0';
+                while (getchar() != '\n');
+                printf("Col [1-9]: ");
+                col = getchar() - '0';
+                while (getchar() != '\n');
+                if (!checkPosModifiable(board, row, col))
+                    printf("Position cannot be changed!\n");
+            } while (!checkPosModifiable(board, row, col));
             printf("Value [0-9]: ");
             val = getchar();
             while (getchar() != '\n');

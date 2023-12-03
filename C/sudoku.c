@@ -6,6 +6,7 @@
 
 #include "sudoku.h"
 #include "stdlib.h"
+#include <string.h> // memcpy
 
 void fillBoardManual(board_t* board){
     char input;
@@ -29,6 +30,9 @@ void fillBoardManual(board_t* board){
             while (getchar() != '\n');
         }
     }
+    // TODO: add confirmation before saving history
+    // save original state
+    memcpy(board->orig, board->values, sizeof(char) * 9 * 9);
 }
 
 void fillBoard(board_t* board, FILE* input, int format){
@@ -67,6 +71,8 @@ void fillBoard(board_t* board, FILE* input, int format){
                     &(board->values[row][col]);
         }
     }
+    // save original state
+    memcpy(board->orig, board->values, sizeof(char) * 9 * 9);
 }
 
 void printBoard(board_t* board){
@@ -84,6 +90,10 @@ void printBoard(board_t* board){
         }
         printf("\n");
     }
+}
+
+int checkPosModifiable(board_t* board, int row, int col){
+    return board->orig[row-1][col-1] == '0';
 }
 
 void changePos(board_t* board, int row, int col, char val){

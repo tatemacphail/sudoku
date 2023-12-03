@@ -26,6 +26,7 @@ typedef struct Board {
     column_t columns[9];
     square_t squares[3][3];
     char values[9][9];
+    char orig[9][9];
 } board_t;
 
 /*
@@ -70,6 +71,24 @@ void fillBoard(board_t* board, FILE* input, int format);
  *      (*board) unchanged
  */
 void printBoard(board_t* board);
+
+/*
+ * Check that a position was not held in the starting board
+ *
+ * PARAMS:
+ *      board - pointer to the board to be checked
+ *      row - row to be checked
+ *      col - column to be checked
+ * PRE:
+ *      1 <= row <= 9 &&
+ *      1 <= col <= 9 &&
+ *      board != NULL && [board has been filled]
+ * POST:
+ *      (*board) is unchanged
+ * RETURNS:
+ *      1 if position was not held in the starting board, 0 ow
+ */
+int checkPosModifiable(board_t* board, int row, int col);
 
 /*
  * Change the indicated position to the passed character.
