@@ -55,7 +55,7 @@ void runMenu(int* printToggle, board_t* board){
                "  p. Print board\n"
                "  m. Print menu\n"
                "  t. Toggle menu reprinting\n"
-               // TODO: "  s. Save board to file"
+               "  s. Save board to file\n"
                "  q. Exit Game\n"
                "------------------------------\n");
     }
@@ -68,6 +68,7 @@ void runMenu(int* printToggle, board_t* board){
 void processMenuInput(char input, board_t* board, int* printToggle){
     int row = 0, col = 0;
     char val = '\0';
+    char saveFile[80] = "saves/";
     switch (input){
         case 'c': //TODO: validate input or get better system
             do {
@@ -96,12 +97,27 @@ void processMenuInput(char input, board_t* board, int* printToggle){
                    "  p. Print board\n"
                    "  m. Print menu\n"
                    "  t. Toggle menu reprinting\n"
-                   // TODO: "  s. Save board to file"
+                   "  s. Save board to file (\"By Character\" format)\n"
                    "  q. Exit Game\n"
                    "------------------------------\n");
             return;
         case 't':
             *printToggle = !(*printToggle);
+            return;
+        case 's':
+            printf("File Name: ");
+            scanf("%[^\n]s", saveFile+6);
+            getchar(); // clear \n
+            // write to 'saves/[filename]'
+            FILE* out = fopen(saveFile, "w");
+            assert(out != NULL);
+            for (row = 0; row < 9; row++) {
+                for (col = 0; col < 9; col++) {
+                    fputc(board->values[row][col], out);
+                }
+            }
+            fclose(out);
+            printf("Game state saved to %s.\n", saveFile);
             return;
         case 'q':
             exit(1);
